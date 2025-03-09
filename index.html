@@ -15,7 +15,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet">
     
     <!-- Custom CSS -->
     <link rel="stylesheet" href="css/style.css">
@@ -100,7 +100,7 @@
     <!-- About Section -->
     <section id="about">
         <div class="container">
-            <h2 class="section-title">About Me</h2>
+            <h2 class="section-title" id="about-title">About Me</h2>
             <div class="row">
                 <div class="col-lg-8 offset-lg-2">
                     <p>
@@ -130,7 +130,7 @@
     <!-- Research Section -->
     <section id="research">
         <div class="container">
-            <h2 class="section-title">Research</h2>
+            <h2 class="section-title" id="research-title">Research</h2>
             <div class="row">
                 <div class="col-lg-8 offset-lg-2">
                     <p>My research focuses on machine learning applications and enhancing the reasoning capabilities of large language models. The following are my primary research areas:</p>
@@ -165,7 +165,7 @@
     <!-- Work Section -->
     <section id="work">
         <div class="container">
-            <h2 class="section-title">Work</h2>
+            <h2 class="section-title" id="work-title">Work</h2>
             <div class="row">
                 <div class="col-lg-8 offset-lg-2">
                     <h3><a href="https://najarianlab.ccmb.med.umich.edu" target="_blank">Biomedical & Clinical Informatics Lab (BCIL)</a></h3>
@@ -189,7 +189,7 @@
     <!-- Certificates Section -->
     <section id="certificates">
         <div class="container">
-            <h2 class="section-title">Certificates</h2>
+            <h2 class="section-title" id="certificates-title">Certificates</h2>
             <div class="row">
                 <div class="col-lg-8 offset-lg-2">
                     <div class="card mb-4">
@@ -208,121 +208,10 @@
         </div>
     </section>
 
-    <!-- Publications Section - Commented out -->
-    <!--
-    <section id="publications">
-        <div class="container">
-            <h2 class="section-title">Publications</h2>
-            <div class="row">
-                <div class="col-lg-10 offset-lg-1">
-                    <div class="d-flex justify-content-end mb-4">
-                        <a href="https://scholar.google.com/citations?user=YOUR_ID" target="_blank" class="btn btn-outline-secondary btn-sm">
-                            <i class="fas fa-graduation-cap me-2"></i>Google Scholar Profile
-                        </a>
-                    </div>
-                    
-                    <h3>Journal Articles</h3>
-                    <ul class="list-unstyled publication-list">
-                        <li class="mb-4">
-                            <div class="publication-item">
-                                <p class="publication-authors">Author 1, <strong>Junkuan Liu</strong>, Author 3, Author 4</p>
-                                <h4 class="publication-title">Title of Publication 1</h4>
-                                <p class="publication-venue">Journal Name, Volume(Issue), Pages, Year</p>
-                                <div class="publication-links">
-                                    <a href="#" class="me-3"><i class="fas fa-file-pdf me-1"></i>PDF</a>
-                                    <a href="#" class="me-3"><i class="fas fa-link me-1"></i>DOI</a>
-                                    <a href="#" class="me-3"><i class="fas fa-code me-1"></i>Code</a>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="mb-4">
-                            <div class="publication-item">
-                                <p class="publication-authors">Author 1, Author 2, <strong>Junkuan Liu</strong>, Author 4</p>
-                                <h4 class="publication-title">Title of Publication 2</h4>
-                                <p class="publication-venue">Journal Name, Volume(Issue), Pages, Year</p>
-                                <div class="publication-links">
-                                    <a href="#" class="me-3"><i class="fas fa-file-pdf me-1"></i>PDF</a>
-                                    <a href="#" class="me-3"><i class="fas fa-link me-1"></i>DOI</a>
-                                </div>
-                            </div>
-                        </li>
-                    </ul>
-                    
-                    <h3 class="mt-5">Conference Proceedings</h3>
-                    <ul class="list-unstyled publication-list">
-                        <li class="mb-4">
-                            <div class="publication-item">
-                                <p class="publication-authors"><strong>Junkuan Liu</strong>, Author 2, Author 3</p>
-                                <h4 class="publication-title">Title of Conference Paper 1</h4>
-                                <p class="publication-venue">Conference Name, Location, Pages, Year</p>
-                                <div class="publication-links">
-                                    <a href="#" class="me-3"><i class="fas fa-file-pdf me-1"></i>PDF</a>
-                                    <a href="#" class="me-3"><i class="fas fa-code me-1"></i>Code</a>
-                                    <a href="#" class="me-3"><i class="fas fa-presentation me-1"></i>Slides</a>
-                                </div>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </section>
-    -->
-
-    <!-- Projects Section - Commented out -->
-    <!--
-    <section id="projects">
-        <div class="container">
-            <h2 class="section-title">Projects</h2>
-            <div class="row">
-                <div class="col-md-6 col-lg-4 mb-4">
-                    <div class="card h-100">
-                        <img src="img/project1.jpg" class="card-img-top" alt="Project 1">
-                        <div class="card-body">
-                            <h5 class="card-title">Project Title 1</h5>
-                            <p class="card-text">Developed a web application using React and Node.js to manage tasks efficiently. Implemented features such as user authentication, task categorization, and real-time updates.</p>
-                        </div>
-                        <div class="card-footer bg-transparent border-0">
-                            <a href="#" class="btn btn-sm btn-outline-primary">Learn More</a>
-                            <a href="#" class="btn btn-sm btn-outline-secondary ms-2">GitHub</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6 col-lg-4 mb-4">
-                    <div class="card h-100">
-                        <img src="img/project2.jpg" class="card-img-top" alt="Project 2">
-                        <div class="card-body">
-                            <h5 class="card-title">Project Title 2</h5>
-                            <p class="card-text">Created a machine learning model to predict stock prices using Python and TensorFlow. Achieved a high accuracy rate by optimizing the model with various algorithms.</p>
-                        </div>
-                        <div class="card-footer bg-transparent border-0">
-                            <a href="#" class="btn btn-sm btn-outline-primary">Learn More</a>
-                            <a href="#" class="btn btn-sm btn-outline-secondary ms-2">GitHub</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6 col-lg-4 mb-4">
-                    <div class="card h-100">
-                        <img src="img/project3.jpg" class="card-img-top" alt="Project 3">
-                        <div class="card-body">
-                            <h5 class="card-title">Project Title 3</h5>
-                            <p class="card-text">Developed a mobile app for tracking fitness activities using Flutter. Integrated features like GPS tracking, activity logging, and social sharing.</p>
-                        </div>
-                        <div class="card-footer bg-transparent border-0">
-                            <a href="#" class="btn btn-sm btn-outline-primary">Learn More</a>
-                            <a href="#" class="btn btn-sm btn-outline-secondary ms-2">GitHub</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    -->
-
     <!-- Contact Section -->
     <section id="contact">
         <div class="container">
-            <h2 class="section-title">Contact</h2>
+            <h2 class="section-title" id="contact-title">Contact</h2>
             <div class="row">
                 <div class="col-md-6 offset-md-3">
                     <div class="card">
@@ -338,7 +227,7 @@
                                 <i class="fas fa-map-marker-alt contact-icon"></i>
                                 <div>
                                     <strong>Address:</strong><br>
-                                    Address 48105, Ann Arbor, Michigan
+                                    <a href="https://www.google.com/maps/search/?api=1&query=48105,+Ann+Arbor,+Michigan" target="_blank">Address 48105, Ann Arbor, Michigan</a>
                                 </div>
                             </div>
                             <!-- <div class="contact-item">
