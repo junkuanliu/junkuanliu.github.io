@@ -1,2 +1,0 @@
-This is a placeholder file for the files directory.
-You should place your CV (named CV.pdf) and other documents here. 
