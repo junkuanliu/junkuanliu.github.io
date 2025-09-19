@@ -1,1 +1,8 @@
-[]
+[
+  {
+    "title": "VLM + RL + Data (Environment) = GUI Agent",
+    "permalink": "https://junkuanliu.github.io/posts/vlm-rl-gui-agent/",
+    "summary": "Why reinforcement learning, tailored environments, and data pipelines are converging to make reliable GUI agents possible.",
+    "content": "Since GPT-3, teaching AI to operate computers and phones has been a persistent ambition. Many systems have been proposed—some tool-centric, some rule-driven, some end-to-end. This post looks at why reinforcement learning, vision-language models, and engineered environments are converging toward dependable GUI agents, covering dataset design, verifiable rewards, and the data bottlenecks that still remain."
+  }
+]

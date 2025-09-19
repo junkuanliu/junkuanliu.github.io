@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="robots" content="index, follow">
+  <title>VLM + RL + Data (Environment) = GUI Agent | Junkuan (Benjamin) Liu</title>
+  <meta name="description" content="Why reinforcement learning, rich environments, and high-quality data are converging to make dependable GUI agents possible." />
+  <meta name="author" content="Junkuan (Benjamin) Liu">
+  <link rel="canonical" href="https://junkuanliu.github.io/posts/vlm-rl-gui-agent/" />
+  <link crossorigin="anonymous" href="/assets/css/stylesheet.min.51b2420ff5ea1215cdf584af7ba59d5fea94201c33f25109d6448c7271631316.css" integrity="sha256-UbJCD/XqEhXN9YSve6WdX+qUIBwz8lEJ1kSMcnFjExY=" rel="preload stylesheet" as="style">
+  <link rel="icon" href="https://junkuanliu.github.io/favicon_peach.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="https://junkuanliu.github.io/favicon-16x16.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="https://junkuanliu.github.io/favicon-32x32.png">
+  <link rel="apple-touch-icon" href="https://junkuanliu.github.io/apple-touch-icon.png">
+  <link rel="mask-icon" href="https://junkuanliu.github.io/safari-pinned-tab.svg">
+  <meta name="theme-color" content="#2e2e33">
+  <meta name="msapplication-TileColor" content="#2e2e33">
+  <meta property="og:title" content="VLM + RL + Data (Environment) = GUI Agent" />
+  <meta property="og:description" content="A field note on how reinforcement learning, environments, and data pipelines are converging toward dependable GUI agents." />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://junkuanliu.github.io/posts/vlm-rl-gui-agent/" />
+  <meta property="article:published_time" content="2025-09-18T00:00:00-04:00" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="VLM + RL + Data (Environment) = GUI Agent" />
+  <meta name="twitter:description" content="Why reinforcement learning, rich environments, and high-quality data are converging to make dependable GUI agents possible." />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": "VLM + RL + Data (Environment) = GUI Agent",
+    "description": "Why reinforcement learning, rich environments, and high-quality data are converging to make dependable GUI agents possible.",
+    "datePublished": "2025-09-18T00:00:00-04:00",
+    "dateModified": "2025-09-18T00:00:00-04:00",
+    "author": {
+      "@type": "Person",
+      "name": "Junkuan (Benjamin) Liu"
+    },
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https://junkuanliu.github.io/posts/vlm-rl-gui-agent/"
+    }
+  }
+  </script>
+  <link rel="alternate" hreflang="en" href="https://junkuanliu.github.io/posts/vlm-rl-gui-agent/" />
+  <noscript>
+    <style>
+      #theme-toggle,
+      .top-link {
+        display: none;
+      }
+    </style>
+    <style>
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --theme: rgb(29, 30, 32);
+          --entry: rgb(46, 46, 51);
+          --primary: rgb(218, 218, 219);
+          --secondary: rgb(155, 156, 157);
+          --tertiary: rgb(65, 66, 68);
+          --content: rgb(196, 196, 197);
+          --hljs-bg: rgb(46, 46, 51);
+          --code-bg: rgb(55, 56, 62);
+          --border: rgb(51, 51, 51);
+        }
+
+        .list {
+          background: var(--theme);
+        }
+
+        .list:not(.dark)::-webkit-scrollbar-track {
+          background: 0 0;
+        }
+
+        .list:not(.dark)::-webkit-scrollbar-thumb {
+          border-color: var(--theme);
+        }
+      }
+    </style>
+  </noscript>
+</head>
+
+<body class="" id="top">
+  <script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+      document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+      document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+      document.body.classList.add('dark');
+    }
+  </script>
+
+  <header class="header">
+    <nav class="nav">
+      <div class="logo">
+        <a href="https://junkuanliu.github.io/" accesskey="h" title="Junkuan (Benjamin) Liu (Alt + H)">Junkuan (Benjamin) Liu</a>
+        <span class="logo-switches">
+          <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+            <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+            </svg>
+            <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="5"></circle>
+              <line x1="12" y1="1" x2="12" y2="3"></line>
+              <line x1="12" y1="21" x2="12" y2="23"></line>
+              <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+              <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+              <line x1="1" y1="12" x2="3" y2="12"></line>
+              <line x1="21" y1="12" x2="23" y2="12"></line>
+              <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+              <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+            </svg>
+          </button>
+          <ul class="lang-switch"><li>|</li></ul>
+        </span>
+      </div>
+      <ul id="menu">
+        <li><a href="https://junkuanliu.github.io/page/profile/" title="Profile"><span>Profile</span></a></li>
+        <li><a href="https://junkuanliu.github.io/posts/" title="Blog"><span class="active">Blog</span></a></li>
+        <li><a href="https://junkuanliu.github.io/archives/" title="Archive"><span>Archive</span></a></li>
+        <li><a href="https://junkuanliu.github.io/search/" title="Search (Alt + /)" accesskey="/"><span>Search</span></a></li>
+        <li><a href="https://junkuanliu.github.io/tags/" title="Tags"><span>Tags</span></a></li>
+        <li><a href="https://junkuanliu.github.io/faq/" title="FAQ"><span>FAQ</span></a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main class="main">
+    <article class="post-single">
+      <header class="post-header">
+        <div class="breadcrumbs">
+          <a href="https://junkuanliu.github.io/">Home</a>
+          <span class="breadcrumbs-separator">/</span>
+          <a href="https://junkuanliu.github.io/posts/">Blog</a>
+        </div>
+        <h1 class="post-title">VLM + RL + Data (Environment) = GUI Agent</h1>
+        <div class="post-meta">
+          <span class="post-date">September 18, 2025</span>
+          <span class="meta-separator">•</span>
+          <span class="post-reading-time">8 min read</span>
+        </div>
+      </header>
+
+      <div class="post-content">
+        <p>Since GPT-3, teaching AI to operate computers and phones has been a persistent ambition. Many systems have been proposed—some tool-centric, some rule-driven, some fully end-to-end. Given the breadth of prior work, this field note focuses on the increasingly convergent route in the literature: use <strong>reinforcement learning (RL)</strong> to train a <strong>vision-language model (VLM)</strong> to act as a GUI agent end-to-end.</p>
+
+        <figure>
+          <img src="/posts/vlm-rl-gui-agent/media/gui-agent-overview.png" alt="Conceptual diagram of a vision-language model GUI agent pipeline." loading="lazy">
+          <figcaption>RL-tuned VLMs learn to perceive, reason, and act over computer GUIs.</figcaption>
+        </figure>
+
+        <h2 id="vision-language-model">Vision-Language Model</h2>
+        <p>A straightforward way to automate GUI action is to use prompt engineering with a VLM and, in multi-stage designs, delegate planning to one model and grounding to another [1–2]. The field is gradually converging on unified architectures where a single vision-language model carries perception, reasoning, and action, motivated by the observation that hand-crafted pipelines tend to saturate while learned systems keep improving with scale and interaction signal; reading “The Bitter Lesson” provides useful historical intuition for why learned, general systems win out over manual decomposition in the long run [3].</p>
+        <p>General-purpose VLMs bring strong priors from vast pre-training corpora, but GUI control is a distinct domain. Screens are high-resolution and densely populated with small, function-bearing elements; models often miss tiny icons without special treatment [4–5]. Semantics depend on hierarchical layout and affordances rather than natural-image statistics, and robust localization remains hard under resolution constraints [6–7]. GUI interfaces also evolve at runtime: pop-ups, notifications, and layout drift introduce non-stationarity and noise that perception must handle gracefully [8–10]. Finally, tasks unfold over long horizons with stateful dependencies across applications; scalable, reliable long-horizon reasoning remains open [11].</p>
+        <p>In response to these domain-specific challenges, the community has built GUI-centric perception datasets and models and then used supervised fine-tuning (SFT) to specialize VLMs for precise grounding and action mapping. High-resolution and small-box localization are explicitly targeted by AGuvis-1 and ScreenPR/ScreenSpot-style resources [4, 12], while structural understanding of layout and affordances is stressed by WebSRC [6]. At the same time, OS-ATLAS curates a cross-platform atlas of OS-level elements and tasks and releases baseline models trained via SFT to improve grounded understanding across desktop domains [7]. Concretely, the OS-ATLAS project reports consistent gains of its SFT models on its own cross-app evaluations and supplies reproducible training and evaluation recipes, illustrating the typical “pretrain for perception → SFT for domain specialization” pipeline before moving to RL for robustness under drift and long horizons.</p>
+
+        <figure>
+          <img src="/posts/vlm-rl-gui-agent/media/vlm-table.png" alt="Table summarizing supervised fine-tuning results for GUI perception datasets." loading="lazy">
+          <figcaption>Specialized datasets push VLMs toward GUI fluency, yet reliability gaps remain.</figcaption>
+        </figure>
+
+        <p>However, the table above makes the limitation of SFT clear: even with domain-specialized pretraining and supervised fine-tuning, models remain far from human reliability on multi-application desktop workflows. With the rise of verifiable-reward RL—training regimes that compute rule-based task signals from the environment—RL is increasingly applied to GUI agents to optimize behavior over trajectories rather than single steps [12].</p>
+
+        <h2 id="reinforcement-learning">Reinforcement Learning</h2>
+        <p>RL has a long history in sequential decision-making. When training a GUI agent, the interaction process between the agent and its environment is naturally formalized as a Markov Decision Process (MDP), denoted as M = {S, A, T, r, γ}. In this formulation, the state space S corresponds to possible screen observations; the action space A includes clicks, text entry, scrolling, or higher-level API calls; the transition function T models how the interface evolves; and the reward function r provides scalar feedback. The objective is to learn a policy π(a∣s) that maximizes expected return. This framing makes reinforcement learning a natural fit: unlike supervised fine-tuning, which depends on annotated trajectories, RL can directly optimize behavior through interaction, particularly in long-horizon, multi-application workflows [13–14].</p>
+
+        <figure>
+          <img src="/posts/vlm-rl-gui-agent/media/rl-performance.png" alt="Comparison chart of reinforcement learning enhanced GUI agents." loading="lazy">
+          <figcaption>Recent RL pipelines deliver measurable gains on long-horizon GUI tasks.</figcaption>
+        </figure>
+
+        <p>People have already begun to apply RL to GUI agents, and the initial results are encouraging. For instance, the UI-TARS and UI-TARS2 systems integrate multimodal perception with trajectory-level reinforcement signals to improve robustness under UI drift and long-horizon tasks, demonstrating clear gains over supervised approaches in mobile and Android environments [14, 15]. Similarly, benchmarks such as OSWorld show that RL-trained policies can generalize better than SFT alone, achieving higher success rates on multi-step workflows across applications [11]. These results suggest that interaction-driven optimization is beginning to narrow the gap toward human-like reliability.</p>
+        <p>The benefits of RL in this setting are straightforward. GUI tasks incur compounding error and delayed credit assignment; RL directly optimizes long-term return rather than step-wise imitation. Rule-based or “verifiable” rewards allow programmatic checks of progress and completion, reducing the dependence on expensive human labels and potential reward hacking, while offline replay and asynchronous interaction pipelines improve sample efficiency [14]. Empirically, these ingredients translate into better adaptivity under layout drift, more reliable error recovery, and improved cross-application transfer relative to SFT-only baselines.</p>
+        <p>At the same time, the main obstacles exposed by these RL studies point beyond the optimizer. High-quality, up-to-date trajectories and learning-grade environments are scarce; many public corpora exhibit noise, outdated UI states, or narrow coverage [14, 13]. Environment ecosystems typically fall into three families—static replicas (e.g., screenshot snapshots), simulated or self-hosted websites (e.g., MiniWoB, WebArena/VisualWebArena), and real-world execution platforms (e.g., OSWorld, AndroidWorld/MobileAgentBench)—each trading off fidelity, controllability, and cost [13, 9–11, 16–18]. <strong>However, none of them yet meet the bar for scalable, verifiable, and economical data generation at once</strong>—each compromises fidelity, controllability, or cost. In short, as RL moves from proofs-of-concept to realistic settings, data and environments—not just algorithms—will increasingly determine progress.</p>
+
+        <h2 id="data-in-rl">Data in RL</h2>
+        <p>When applying RL to GUI agents, it is tempting to keep tuning the optimizer or add intricate reward shaping. But a careful look at failure cases shows that many errors stem from <em>signal quality</em> rather than the policy update itself: mislabeled or ambiguous success checks, stale or drifting screens, and missing intermediate feedback. This pattern is consistent with surveys that diagnose noisy rewards and dataset staleness as the dominant bottlenecks in rapidly evolving interfaces. In other words, the algorithm may be “good enough” on clean loops; what holds back reliability is the quality and timeliness of the interaction data.</p>
+        <p>On the environment side, today’s ecosystems span static replicas, simulated or self-hosted sites, and real-world execution platforms, each trading off fidelity, controllability, and cost [13]. <strong>Beyond environments, however, there is still no generally accepted, scalable method to acquire large-scale, high-quality trajectory data for RL.</strong> Existing collection pipelines either introduce too much noise (e.g., weakly verified outcomes, outdated UI states, inconsistent progress signals) or fail to scale economically to the volumes needed for robust long-horizon learning. In practice, this means policies trained with interaction remain constrained not only by algorithmic choices but by the lack of reliable, progress-aware trajectories at scale.</p>
+        <p><strong>From a data perspective, the most promising path is to engineer environments as data generators</strong>, not because environments are the only solution, but because they can operationalize what high-quality trajectories require. If an environment can (i) <strong>verify</strong> terminal and intermediate conditions programmatically (reducing label noise), (ii) <strong>control</strong> drift and perturbations to expose robustness gaps systematically, and (iii) <strong>scale</strong> via parallel, replayable execution, then it becomes a practical instrument for producing large volumes of reliable, progress-aware interaction data—precisely the bottleneck identified above. This does not preclude complementary routes (e.g., policy-guided logging with consent, rule-based reward extraction, or offline value modeling), but it frames a unifying principle: treat data quality as a <em>system property</em> that we can design for. In this view, environments are not an end in themselves; they are a means to manufacture the signals that RL needs to turn SFT competence into reliable, long-horizon behavior in dynamic GUIs.</p>
+
+        <h2 id="references">References</h2>
+        <ol>
+          <li>OmniParser. “Structured UI Representations from Screenshots for GUI Grounding.” arXiv preprint, 2024.</li>
+          <li>SeeClick. “SeeClick: Harnessing General-Purpose Models for Click-Through GUI Grounding.” Findings of ACL, 2024.</li>
+          <li>Sutton, R. S. “The Bitter Lesson.” 2019. <a href="https://www.cs.utexas.edu/~eunsol/courses/data/bitter_lesson.pdf" target="_blank" rel="noopener">https://www.cs.utexas.edu/~eunsol/courses/data/bitter_lesson.pdf</a></li>
+          <li>ScreenSpot-Pro. “GUI Grounding for Professional High-Resolution Computer Use.” arXiv preprint, 2025.</li>
+          <li>CogAgent. “CogAgent: A Visual–Language Model for GUI Perception and Small-Element Localization.” arXiv preprint / Conference paper, 2024.</li>
+          <li>WebSRC. “Web-based Structural Reading Comprehension.” EMNLP, 2021. <a href="https://arxiv.org/abs/2107.04612" target="_blank" rel="noopener">https://arxiv.org/abs/2107.04612</a></li>
+          <li>OS-ATLAS. “A Cross-Platform Operating-System GUI Atlas for Grounded Understanding.” Project &amp; preprint, 2024. <a href="https://osatlas.github.io/" target="_blank" rel="noopener">https://osatlas.github.io/</a></li>
+          <li>UI-Hawk. “History-Aware GUI Agents under Dynamic Interfaces.” preprint, 2025.</li>
+          <li>WebArena. “A Realistic Web Environment for Building Autonomous Agents.” Project &amp; arXiv preprint, 2023. <a href="https://arxiv.org/abs/2307.13854" target="_blank" rel="noopener">https://arxiv.org/abs/2307.13854</a> — <a href="https://webarena.dev" target="_blank" rel="noopener">https://webarena.dev</a></li>
+          <li>VisualWebArena. “Evaluating Multimodal Agents on Realistic Visual Web Tasks.” arXiv preprint / Benchmark project, 2024.</li>
+          <li>OSWorld. “Benchmarking Multimodal Agents for Open-Ended Tasks in Real Computer Environments.” NeurIPS Datasets &amp; Benchmarks / arXiv preprint, 2024. <a href="https://arxiv.org/abs/2404.07972" target="_blank" rel="noopener">https://arxiv.org/abs/2404.07972</a> — <a href="https://os-world.github.io" target="_blank" rel="noopener">https://os-world.github.io</a></li>
+          <li>DeepSeek-R1. “Incentivizing Reasoning via Verifiable Rewards.” arXiv preprint, 2025. <a href="https://arxiv.org/abs/2501.12948" target="_blank" rel="noopener">https://arxiv.org/abs/2501.12948</a></li>
+          <li>Survey (Perception–Exploration–Planning–Interaction). “A Survey on (M)LLM-Based GUI Agents.” arXiv preprint, 2025 (v1: 2504.13865).</li>
+          <li>Survey (RL-Enhanced GUI Agents). “A Survey on GUI Agents with Foundation Models Enhanced by Reinforcement Learning.” arXiv preprint, 2025 (v2: 2504.20464).</li>
+          <li>UI-TARS / UI-TARS2. “Unified Perception-to-Action Mobile/Android Agents with Reinforcement Optimization.” project &amp; papers, 2024–2025.</li>
+          <li>MiniWoB / MiniWoB++. “World of Bits: An Open-Domain Platform for Web-Based Agents (incl. MiniWoB).” ICML, 2017. <a href="https://arxiv.org/abs/1707.06690" target="_blank" rel="noopener">https://arxiv.org/abs/1707.06690</a></li>
+          <li>AndroidWorld. “A Dynamic Real-Device Benchmarking Environment for Autonomous Agents.” arXiv preprint, 2024. <a href="https://arxiv.org/abs/2405.14573" target="_blank" rel="noopener">https://arxiv.org/abs/2405.14573</a></li>
+          <li>MobileAgentBench. “A Benchmark for Mobile LLM Agents on Real Devices.” arXiv preprint, 2024. <a href="https://arxiv.org/abs/2406.08184" target="_blank" rel="noopener">https://arxiv.org/abs/2406.08184</a></li>
+        </ol>
+      </div>
+
+      <footer class="post-footer">
+        <ul class="post-tags">
+          <li><a href="https://junkuanliu.github.io/tags/gui-agents/">gui agents</a></li>
+          <li><a href="https://junkuanliu.github.io/tags/reinforcement-learning/">reinforcement learning</a></li>
+          <li><a href="https://junkuanliu.github.io/tags/vision-language-models/">vision-language models</a></li>
+        </ul>
+      </footer>
+    </article>
+  </main>
+
+  <footer class="footer">
+    <span>&copy; 2025 <a href="https://junkuanliu.github.io/">Junkuan (Benjamin) Liu</a></span>
+    <span>
+      Powered by
+      <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &amp;
+      <a href="https://github.com/adityatelange/hugo-PaperMod" rel="noopener noreferrer" target="_blank">PaperMod</a>
+    </span>
+  </footer>
+  <a href="#top" aria-label="Go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+      <path d="M12 6H0l6-6z" />
+    </svg>
+  </a>
+
+  <script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+      menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+      menu.onscroll = function () {
+        localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+      }
+    }
+  </script>
+  <script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+      if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+        mybutton.style.visibility = "visible";
+        mybutton.style.opacity = "1";
+      } else {
+        mybutton.style.visibility = "hidden";
+        mybutton.style.opacity = "0";
+      }
+    };
+  </script>
+  <script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+      if (document.body.className.includes("dark")) {
+        document.body.classList.remove('dark');
+        localStorage.setItem("pref-theme", 'light');
+      } else {
+        document.body.classList.add('dark');
+        localStorage.setItem("pref-theme", 'dark');
+      }
+    })
+  </script>
+</body>
+
+</html>

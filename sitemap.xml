@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://junkuanliu.github.io/</loc>
-    <lastmod>2025-01-01</lastmod>
+    <lastmod>2025-09-18</lastmod>
   </url>
   <url>
     <loc>https://junkuanliu.github.io/page/profile/</loc>
@@ -10,11 +10,15 @@
   </url>
   <url>
     <loc>https://junkuanliu.github.io/posts/</loc>
-    <lastmod>2025-01-01</lastmod>
+    <lastmod>2025-09-18</lastmod>
+  </url>
+  <url>
+    <loc>https://junkuanliu.github.io/posts/vlm-rl-gui-agent/</loc>
+    <lastmod>2025-09-18</lastmod>
   </url>
   <url>
     <loc>https://junkuanliu.github.io/archives/</loc>
-    <lastmod>2025-01-01</lastmod>
+    <lastmod>2025-09-18</lastmod>
   </url>
   <url>
     <loc>https://junkuanliu.github.io/categories/</loc>
@@ -22,7 +26,19 @@
   </url>
   <url>
     <loc>https://junkuanliu.github.io/tags/</loc>
-    <lastmod>2025-01-01</lastmod>
+    <lastmod>2025-09-18</lastmod>
+  </url>
+  <url>
+    <loc>https://junkuanliu.github.io/tags/gui-agents/</loc>
+    <lastmod>2025-09-18</lastmod>
+  </url>
+  <url>
+    <loc>https://junkuanliu.github.io/tags/reinforcement-learning/</loc>
+    <lastmod>2025-09-18</lastmod>
+  </url>
+  <url>
+    <loc>https://junkuanliu.github.io/tags/vision-language-models/</loc>
+    <lastmod>2025-09-18</lastmod>
   </url>
   <url>
     <loc>https://junkuanliu.github.io/faq/</loc>
