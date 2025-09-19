@@ -11,6 +11,7 @@
   <meta name="author" content="Junkuan (Benjamin) Liu">
   <link rel="canonical" href="https://junkuanliu.github.io/page/profile/" />
   <link crossorigin="anonymous" href="/assets/css/stylesheet.min.51b2420ff5ea1215cdf584af7ba59d5fea94201c33f25109d6448c7271631316.css" integrity="sha256-UbJCD/XqEhXN9YSve6WdX+qUIBwz8lEJ1kSMcnFjExY=" rel="preload stylesheet" as="style">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer">
   <link rel="icon" type="image/png" sizes="16x16" href="https://junkuanliu.github.io/favicon-16x16.png">
   <link rel="icon" type="image/png" sizes="32x32" href="https://junkuanliu.github.io/favicon-32x32.png">
   <link rel="apple-touch-icon" href="https://junkuanliu.github.io/apple-touch-icon.png">
@@ -60,6 +61,11 @@
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:title" content="Profile" />
   <meta name="twitter:description" content="Computer Science student at the University of Michigan and LG AI Research intern building scalable systems for GUI agents and AI interview tooling." />
+  <style>
+    .social-icons { list-style: none; padding-left: 0; display: flex; gap: 12px; margin-top: 8px; }
+    .social-icons .icon-link { display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; border-radius: 6px; }
+    .social-icons .icon-link i { font-size: 18px; }
+  </style>
   
   <script type="application/ld+json">
   {
@@ -167,10 +173,18 @@
   <main class="main">
     <header class="page-header">
       <h1>Junkuan (Benjamin) Liu</h1>
+      <ul class="social-icons" aria-label="Contact links">
+        <li>
+          <a class="icon-link" aria-label="LinkedIn" href="https://linkedin.com/in/junkuan" target="_blank" rel="noopener" title="LinkedIn"><i class="fa-brands fa-linkedin" aria-hidden="true"></i></a>
+        </li>
+        <li>
+          <a class="icon-link" aria-label="GitHub" href="https://github.com/junkuanliu" target="_blank" rel="noopener" title="GitHub"><i class="fa-brands fa-github" aria-hidden="true"></i></a>
+        </li>
+      </ul>
     </header>
 
     <div class="post-content">
-      <p> Hi! I'm Junkuan Liu. Welcome to my website &#128522;</p>
+      <p>Hi! I'm Junkuan Liu. Welcome to my personal website! &#128522; Feel free to reach out to me at junkuan@umich.edu for any inquiries or collaborations.</p>
 
 
       <h2 id="education">Education</h2>
@@ -178,44 +192,20 @@
       <p><strong>Bachelor of Science in Engineering, Computer Science</strong> — Ann Arbor, MI</p>
 
       <h2 id="experience">Experience</h2>
-      <h3>LG AI Research</h3>
+      <h3><a href="https://www.lgresearch.ai/" target="_blank" rel="noopener">LG AI Research</a></h3>
       <p><strong>Research Intern</strong> — Ann Arbor, MI (July 2025 – Present)</p>
-      <ul>
-        <li>Built scalable ETL pipelines that unify heterogeneous GUI interaction corpora into a 55M-sample dataset for large-scale agent training.</li>
-        <li>Implemented SQLite-backed filtering and version control, logging metrics for 55M+ samples to enable reproducible dataset curation.</li>
-        <li>Evaluated transformer-based agents with resumable experiment caching and deployed distributed RL training with PyTorch FSDP (ZeRO-3) and pipeline parallelism on 32× A100 GPUs, improving efficiency by ~40% over naive DDP.</li>
-      </ul>
-      <h3>Biomedical &amp; Clinical Informatics Lab (BCIL)</h3>
-      <p><strong>Research Project</strong> — Ann Arbor, MI (Octorber 2024 – May 2025)</p>
-      <ul>
-        <li>Extended CVAE/VAE architectures in PyTorch on 350K antibody sequences to capture nuanced structural patterns for antibody design.</li>
-        <li>Combined supervised and unsupervised latent optimization to improve downstream functionality prediction accuracy from 76.7% to 85.9%.</li>
-      </ul>
+
+      <h3><a href="https://najarianlab.ccmb.med.umich.edu/" target="_blank" rel="noopener">Biomedical &amp; Clinical Informatics Lab (BCIL)</a></h3>
+      <p><strong>Research Assistant</strong> — Ann Arbor, MI (October 2024 – May 2025)</p>
 
       <h2 id="projects">Projects</h2>
       <h3>AI Interview System</h3>
       <p><strong>Side Project</strong> — Ann Arbor, MI (September 2025 – Present)</p>
-      <ul>
-        <li>Created an AI system-design interview simulator with real-time voice chat and collaborative whiteboarding using React (TypeScript, Vite) and a Node.js/Express WebSocket backend.</li>
-        <li>Engineered a streaming audio pipeline (Web Audio API → VAD → 24&nbsp;kHz PCM/Base64) with live STT/TTS adapters for both Google Gemini and OpenAI Realtime APIs.</li>
-        <li>Designed a shared event schema and automated Excalidraw capture so the agent can analyze diagrams and provide feedback.</li>
-      </ul>
 
-      <h2 id="skills">Skills</h2>
-      <ul>
-        <li><strong>Languages / Systems:</strong> Python, C++, Bash, Linux, Git, SQL</li>
-        <li><strong>Backend:</strong> Node.js, Express, FastAPI, REST, WebSocket, Docker, GitHub Actions, pytest</li>
-        <li><strong>Data / Databases:</strong> PostgreSQL, SQLite, DuckDB, PyArrow, Parquet</li>
-        <li><strong>Distributed &amp; ML:</strong> PyTorch, FSDP (ZeRO-3), DDP, NCCL, vLLM, FlashAttention-2, bf16, Slurm</li>
-        <li><strong>Frontend:</strong> React, TypeScript, Material-UI, Canvas API</li>
-      </ul>
+      <h2 id="recent-writing">Recent Writing</h2>
+      <p>Read my latest post, <a href="https://junkuanliu.github.io/posts/vlm-rl-gui-agent/">VLM + RL + Data (Environment) = GUI Agent</a>, for thoughts on dependable GUI agents.</p>
 
-      <h2 id="contact">Contact</h2>
-      <ul>
-        <li><strong>Email:</strong> <a href="mailto:junkuan@umich.edu">junkuan@umich.edu</a></li>
-        <li><strong>LinkedIn:</strong> <a href="https://linkedin.com/in/junkuan" target="_blank" rel="noopener">linkedin.com/in/junkuan</a></li>
-        <li><strong>GitHub:</strong> <a href="https://github.com/junkuanliu" target="_blank" rel="noopener">github.com/junkuanliu</a></li>
-      </ul>
+      
     </div>
   </main>
 
