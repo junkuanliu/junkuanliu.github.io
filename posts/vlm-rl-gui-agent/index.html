@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="robots" content="index, follow">
-  <title>VLM + RL + Data (Environment) = GUI Agent | Junkuan (Benjamin) Liu</title>
+  <title>VLM + RL + Data (Environment) = GUI Agent | junkuan</title>
   <meta name="description" content="Why reinforcement learning, rich environments, and high-quality data are converging to make dependable GUI agents possible." />
   <meta name="author" content="Junkuan (Benjamin) Liu">
   <link rel="canonical" href="https://junkuanliu.github.io/posts/vlm-rl-gui-agent/" />
@@ -95,7 +95,7 @@
   <header class="header">
     <nav class="nav">
       <div class="logo">
-        <a href="https://junkuanliu.github.io/" accesskey="h" title="Junkuan (Benjamin) Liu (Alt + H)">Junkuan (Benjamin) Liu</a>
+        <a href="https://junkuanliu.github.io/" accesskey="h" title="junkuan (Alt + H)">junkuan</a>
         <span class="logo-switches">
           <button id="theme-toggle" accesskey="t" title="(Alt + T)">
             <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -144,7 +144,7 @@
       </header>
 
       <div class="post-content">
-        <p>Since GPT-3, teaching AI to operate computers and phones has been a persistent ambition. Many systems have been proposed—some tool-centric, some rule-driven, some fully end-to-end. Given the breadth of prior work, this field note focuses on the increasingly convergent route in the literature: use <strong>reinforcement learning (RL)</strong> to train a <strong>vision-language model (VLM)</strong> to act as a GUI agent end-to-end.</p>
+        <p>Since GPT-3, teaching AI to operate computers and phones has been a persistent ambition. Many systems have been proposed—some tool-centric, some rule-driven, some fully end-to-end. Given the breadth of prior work, in this post, I focus on one route that is increasingly convergent in the literature: use <strong>reinforcement learning (RL)</strong> to train a <strong>vision-language model (VLM)</strong> to act as a GUI agent end-to-end.</p>
 
         <figure>
           <img src="/posts/vlm-rl-gui-agent/media/gui-agent-overview.png" alt="Conceptual diagram of a vision-language model GUI agent pipeline." loading="lazy">
@@ -152,9 +152,9 @@
         </figure>
 
         <h2 id="vision-language-model">Vision-Language Model</h2>
-        <p>A straightforward way to automate GUI action is to use prompt engineering with a VLM and, in multi-stage designs, delegate planning to one model and grounding to another [1–2]. The field is gradually converging on unified architectures where a single vision-language model carries perception, reasoning, and action, motivated by the observation that hand-crafted pipelines tend to saturate while learned systems keep improving with scale and interaction signal; reading “The Bitter Lesson” provides useful historical intuition for why learned, general systems win out over manual decomposition in the long run [3].</p>
+        <p>A straightforward way to automate GUI action is to use prompt engineering with a VLM and, in multi-stage designs, delegate planning to one model and grounding to another [1–2]. This decomposition can be useful in simple settings, but it relies on rigid interfaces between models: if the planner’s outputs deviate even slightly from what the grounding model expects, the whole pipeline may break. Such fragility makes cross-domain transfer difficult and limits robustness under interface changes. For this reason, the field is now converging on unified architectures where a single vision-language model carries perception, reasoning, and action. In addition, hand-crafted pipelines tend to plateau quickly, whereas learned, end-to-end systems continue to improve with scale and interaction signal. Reading “The Bitter Lesson” provides useful historical intuition for why general, learned systems ultimately win out over manual decomposition [3].</p>
         <p>General-purpose VLMs bring strong priors from vast pre-training corpora, but GUI control is a distinct domain. Screens are high-resolution and densely populated with small, function-bearing elements; models often miss tiny icons without special treatment [4–5]. Semantics depend on hierarchical layout and affordances rather than natural-image statistics, and robust localization remains hard under resolution constraints [6–7]. GUI interfaces also evolve at runtime: pop-ups, notifications, and layout drift introduce non-stationarity and noise that perception must handle gracefully [8–10]. Finally, tasks unfold over long horizons with stateful dependencies across applications; scalable, reliable long-horizon reasoning remains open [11].</p>
-        <p>In response to these domain-specific challenges, the community has built GUI-centric perception datasets and models and then used supervised fine-tuning (SFT) to specialize VLMs for precise grounding and action mapping. High-resolution and small-box localization are explicitly targeted by AGuvis-1 and ScreenPR/ScreenSpot-style resources [4, 12], while structural understanding of layout and affordances is stressed by WebSRC [6]. At the same time, OS-ATLAS curates a cross-platform atlas of OS-level elements and tasks and releases baseline models trained via SFT to improve grounded understanding across desktop domains [7]. Concretely, the OS-ATLAS project reports consistent gains of its SFT models on its own cross-app evaluations and supplies reproducible training and evaluation recipes, illustrating the typical “pretrain for perception → SFT for domain specialization” pipeline before moving to RL for robustness under drift and long horizons.</p>
+        <p>In response to these domain-specific challenges, the community has built GUI-centric perception datasets and models and then used supervised fine-tuning (SFT) to specialize VLMs for precise grounding and action mapping. High-resolution and small-box localization are explicitly targeted by Aguvis and ScreenSpot-style resources [4, 12, 19], while structural understanding of layout and affordances is stressed by WebSRC [6]. At the same time, OS-ATLAS curates a cross-platform atlas of OS-level elements and tasks and releases baseline models trained via SFT to improve grounded understanding across desktop domains [7]. Concretely, the OS-ATLAS project reports consistent gains of its SFT models on its own cross-app evaluations and supplies reproducible training and evaluation recipes, illustrating the typical “pretrain for perception → SFT for domain specialization” pipeline before moving to RL for robustness under drift and long horizons.</p>
 
         <figure>
           <img src="/posts/vlm-rl-gui-agent/media/vlm-table.png" alt="Table summarizing supervised fine-tuning results for GUI perception datasets." loading="lazy">
@@ -200,6 +200,8 @@
           <li>MiniWoB / MiniWoB++. “World of Bits: An Open-Domain Platform for Web-Based Agents (incl. MiniWoB).” ICML, 2017. <a href="https://arxiv.org/abs/1707.06690" target="_blank" rel="noopener">https://arxiv.org/abs/1707.06690</a></li>
           <li>AndroidWorld. “A Dynamic Real-Device Benchmarking Environment for Autonomous Agents.” arXiv preprint, 2024. <a href="https://arxiv.org/abs/2405.14573" target="_blank" rel="noopener">https://arxiv.org/abs/2405.14573</a></li>
           <li>MobileAgentBench. “A Benchmark for Mobile LLM Agents on Real Devices.” arXiv preprint, 2024. <a href="https://arxiv.org/abs/2406.08184" target="_blank" rel="noopener">https://arxiv.org/abs/2406.08184</a></li>
+          <li>Aguvis. “Aguvis: Unified Pure Vision Agents for Autonomous GUI Interaction.” arXiv preprint, 2024. <a href="https://arxiv.org/abs/2412.04454" target="_blank" rel="noopener">https://arxiv.org/abs/2412.04454</a></li>
+          </li>
         </ol>
       </div>
 
